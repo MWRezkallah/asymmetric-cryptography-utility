@@ -2,7 +2,7 @@ import { generateKeyPairSync, RSAKeyPairOptions } from "crypto";
 import { join } from "path";
 import { writeFileSync, existsSync, mkdirSync } from "fs";
 
-export const createAsymmetricKeyPair = (passphrase: string) => {
+export const createAsymmetricKeyPair = (passphrase: string, kPath="keys") => {
   // options for the generate asymmetric keypair
   const rsaKeyPairOptions: RSAKeyPairOptions<"pem", "pem"> = {
     modulusLength: 4096,
@@ -25,7 +25,7 @@ export const createAsymmetricKeyPair = (passphrase: string) => {
   );
 
   // write the key pairs into pub.key and priv.key files
-  const keysPath = join(__dirname, "keys");
+  const keysPath = join(__dirname, kPath);
   if (!existsSync(keysPath)) {
     mkdirSync(keysPath, { recursive: true });
     writeFileSync(join(keysPath, "pub.key"), publicKey);

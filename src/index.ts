@@ -7,15 +7,14 @@ import { signSecret, verifySecret } from "./signAndVerifySecret";
 // get the passphrase for the encrypted private key
 const passphrase = process.env.passphrase || "MiRezkPass";
 
-// create the keys
-createKeys(passphrase);
-
-// read the keys
-const { privateKey, publicKey } = readKeys();
-
-
 // your application secret
 const secret = process.env.secret || "this is a very secret string!";
+
+// create the keys
+createKeys(passphrase,"keys");
+
+// read the keys
+const { privateKey, publicKey } = readKeys("keys");
 
 // ciphering the secret with the private key
 const cipheredSecret = encryptSecret(privateKey, passphrase, secret);
